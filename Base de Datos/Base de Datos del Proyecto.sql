@@ -696,6 +696,459 @@ BEGIN
     CLOSE cliente_cursor;
 END ObtenerClientePorUsuario;
 
+--CURSORES
+SET SERVEROUTPUT ON;
+--1
+DECLARE 
+  CURSOR cur_empleados IS
+    SELECT * FROM Empleados;
+  IDEmpleado empleados%ROWTYPE;
+BEGIN
+  OPEN cur_empleados;
+  LOOP
+    FETCH cur_empleados INTO Puestos;
+    EXIT WHEN cur_empleados%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(IDEmpleado.Nombre || ' ' || IDEmpleado.Apellido);
+  END LOOP;
+  CLOSE cur_empleados;
+END;
+
+--2
+DECLARE 
+  CURSOR cur_puestos IS
+    SELECT * FROM Puestos;
+  
+  IDPuesto Puestos%ROWTYPE;
+  
+BEGIN
+
+  OPEN cur_puestos;
+  
+  LOOP
+    FETCH cur_puestos INTO Puestos;
+    EXIT WHEN cur_puestos%NOTFOUND;
+    
+    DBMS_OUTPUT.PUT_LINE(IDPuesto.NombrePuesto);
+    
+  END LOOP;
+  
+  CLOSE cur_puestos;
+  
+END;
+
+--3
+DECLARE 
+  CURSOR cur_sesion IS
+    SELECT * FROM InicioSesion;
+  
+  IDUsuario InicioSesion%ROWTYPE;
+  
+BEGIN
+
+  OPEN cur_sesion;
+  
+  LOOP
+    FETCH cur_sesion INTO Puestos;
+    EXIT WHEN cur_sesion%NOTFOUND;
+    
+    DBMS_OUTPUT.PUT_LINE(InicioSesion.IDUsuario);
+    
+  END LOOP;
+  
+  CLOSE cur_sesion;
+  
+END;
+
+--4-SI
+DECLARE 
+  CURSOR cur_compras IS
+    SELECT * FROM HistorialCompras;
+  
+  reg_compra HistorialCompras%ROWTYPE;
+  
+BEGIN
+
+  OPEN cur_compras;
+  
+  LOOP
+    FETCH cur_compras INTO reg_compra;
+    EXIT WHEN cur_compras%NOTFOUND;
+    
+    DBMS_OUTPUT.PUT_LINE('ID Compra: ' || reg_compra.IDCompra);
+    DBMS_OUTPUT.PUT_LINE('ID Cliente: ' || reg_compra.IDCliente);
+    
+  END LOOP;
+  
+  CLOSE cur_compras;
+  
+END;
+
+
+
+--PAQUETES
+--1
+CREATE OR REPLACE PACKAGE paquete_puestos AS
+
+  PROCEDURE crear_tabla;
+
+  PROCEDURE insertar_puesto (
+    p_idpuesto NUMBER,
+    p_puesto VARCHAR2,
+    p_salario NUMBER
+  );
+
+  PROCEDURE actualizar_salario (
+    p_idpuesto NUMBER,
+    p_nuevo_salario NUMBER
+  );
+
+  FUNCTION obtener_puestos RETURN SYS_REFCURSOR;
+
+END paquete_puestos;
+/
+--2
+CREATE OR REPLACE PACKAGE BODY paquete_puestos AS
+
+  PROCEDURE crear_tabla IS
+  BEGIN
+    EXECUTE IMMEDIATE '
+      CREATE TABLE Puestos (
+        IDPuesto NUMBER PRIMARY KEY, 
+        Puesto VARCHAR2(100),
+        Salario NUMBER
+      )';
+  END crear_tabla;
+
+  PROCEDURE insertar_puesto (
+    p_idpuesto NUMBER,
+    p_puesto VARCHAR2,
+    p_salario NUMBER
+  ) IS
+  BEGIN
+    INSERT INTO Puestos VALUES (
+      p_idpuesto,
+      p_puesto,
+      p_salario
+    );
+  END insertar_puesto;
+
+  PROCEDURE actualizar_salario (
+    p_idpuesto NUMBER,
+    p_nuevo_salario NUMBER
+  ) IS
+  BEGIN
+    UPDATE Puestos
+    SET Salario = p_nuevo_salario
+    WHERE IDPuesto = p_idpuesto;
+  END actualizar_salario;
+
+  FUNCTION obtener_puestos RETURN SYS_REFCURSOR IS
+    ref_cursor SYS_REFCURSOR;
+  BEGIN
+    OPEN ref_cursor FOR
+      SELECT * FROM Puestos;
+    RETURN ref_cursor;
+  END obtener_puestos;
+
+END paquete_puestos;
+/
+
+
+--3-SI
+CREATE OR REPLACE PACKAGE paquete_sesion AS
+
+  PROCEDURE crear_tabla;
+
+  PROCEDURE insertar_usuario(
+    p_idusuario NUMBER, 
+    p_nombreusuario VARCHAR2
+  );
+
+  FUNCTION validar_usuario(p_nombreusuario VARCHAR2) RETURN NUMBER;
+
+END paquete_sesion;
+/
+--4-SI
+CREATE OR REPLACE PACKAGE BODY paquete_sesion AS
+
+  PROCEDURE crear_tabla IS
+  BEGIN
+    EXECUTE IMMEDIATE '
+      CREATE TABLE InicioSesion (
+        IDUsuario NUMBER PRIMARY KEY, 
+        NombreUsuario VARCHAR2(50) NOT NULL
+      )';
+  END crear_tabla;
+
+  PROCEDURE insertar_usuario(
+    p_idusuario NUMBER, 
+    p_nombreusuario VARCHAR2
+  ) IS
+  BEGIN
+    INSERT INTO InicioSesion(IDUsuario, NombreUsuario)
+    VALUES (p_idusuario, p_nombreusuario);
+  END insertar_usuario;
+
+  FUNCTION validar_usuario(p_nombreusuario VARCHAR2) RETURN NUMBER IS
+    v_idusuario NUMBER;
+  BEGIN
+    SELECT IDUsuario INTO v_idusuario
+    FROM InicioSesion
+    WHERE NombreUsuario = p_nombreusuario;
+
+    RETURN v_idusuario;
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+      RETURN NULL;
+  END validar_usuario;
+
+END paquete_sesion;
+/
+
+--5-SI
+CREATE OR REPLACE PACKAGE paquete_inventario AS
+
+  PROCEDURE crear_tabla;
+  
+  PROCEDURE registrar_entrada(
+    p_idregistro NUMBER,
+    p_tiporegistro VARCHAR2, 
+    p_producto VARCHAR2,
+    p_cantidad NUMBER,
+    p_fecha DATE
+  );
+  
+  PROCEDURE registrar_salida(
+    p_idregistro NUMBER,
+    p_tiporegistro VARCHAR2,
+    p_producto VARCHAR2,
+    p_cantidad NUMBER,
+    p_fecha DATE
+  );
+
+  FUNCTION obtener_saldo(p_producto VARCHAR2) RETURN NUMBER;
+
+END paquete_inventario;
+/
+--6
+CREATE OR REPLACE PACKAGE BODY paquete_inventario AS
+
+  PROCEDURE crear_tabla IS
+  BEGIN
+  
+    EXECUTE IMMEDIATE '
+      CREATE TABLE GestionInventario (
+        IDRegistro NUMBER PRIMARY KEY,
+        TipoRegistro VARCHAR2(20) NOT NULL,
+        Producto VARCHAR2(50) NOT NULL,
+        Cantidad NUMBER NOT NULL,
+        Fecha DATE NOT NULL
+      )';
+      
+  END crear_tabla;
+
+  PROCEDURE registrar_entrada(
+    p_idregistro NUMBER,
+    p_tiporegistro VARCHAR2,
+    p_producto VARCHAR2, 
+    p_cantidad NUMBER,
+    p_fecha DATE
+  ) IS
+  BEGIN
+  
+    INSERT INTO GestionInventario VALUES(
+      p_idregistro, 
+      p_tiporegistro,
+      p_producto,
+      p_cantidad,
+      p_fecha
+    );
+      
+  END registrar_entrada;
+
+  PROCEDURE registrar_salida(
+    p_idregistro NUMBER,
+    p_tiporegistro VARCHAR2,
+    p_producto VARCHAR2,
+    p_cantidad NUMBER, 
+    p_fecha DATE
+  ) IS
+  BEGIN
+  
+    INSERT INTO GestionInventario VALUES(
+      p_idregistro,
+      p_tiporegistro,  
+      p_producto,
+      -p_cantidad,
+      p_fecha
+    );
+      
+  END registrar_salida;  
+
+  FUNCTION obtener_saldo(p_producto VARCHAR2) RETURN NUMBER IS
+    v_saldo NUMBER;
+  BEGIN
+  
+    SELECT SUM(Cantidad) INTO v_saldo
+    FROM GestionInventario
+    WHERE Producto = p_producto;
+    
+    RETURN v_saldo;
+    
+  END obtener_saldo;
+
+END paquete_inventario;
+/
+
+7--SI
+CREATE OR REPLACE PACKAGE paquete_clientes AS
+
+  PROCEDURE crear_tabla_clientes;
+
+  PROCEDURE insertar_cliente (
+    p_idcliente NUMBER,
+    p_nombrecompleto VARCHAR2
+  );
+
+  FUNCTION obtener_cliente (p_idcliente NUMBER) RETURN VARCHAR2;
+
+  PROCEDURE actualizar_cliente (
+    p_idcliente NUMBER,
+    p_nombrecompleto VARCHAR2
+  );
+
+  PROCEDURE eliminar_cliente (p_idcliente NUMBER);
+
+END paquete_clientes;
+/
+--8
+CREATE OR REPLACE PACKAGE BODY paquete_clientes AS
+
+  PROCEDURE crear_tabla_clientes IS
+  BEGIN
+    EXECUTE IMMEDIATE '
+      CREATE TABLE Clientes (
+        IDCliente NUMBER PRIMARY KEY,
+        NombreCompleto VARCHAR2(100) NOT NULL
+      )';
+  END crear_tabla_clientes;
+
+  PROCEDURE insertar_cliente (
+    p_idcliente NUMBER,
+    p_nombrecompleto VARCHAR2
+  ) IS
+  BEGIN
+    INSERT INTO Clientes VALUES (
+      p_idcliente,
+      p_nombrecompleto
+    );
+  END insertar_cliente;
+
+  FUNCTION obtener_cliente (p_idcliente NUMBER) RETURN VARCHAR2 IS
+    v_nombrecompleto VARCHAR2(100);
+  BEGIN
+    SELECT NombreCompleto INTO v_nombrecompleto
+    FROM Clientes
+    WHERE IDCliente = p_idcliente;
+
+    RETURN v_nombrecompleto;
+  END obtener_cliente;
+
+  PROCEDURE actualizar_cliente (
+    p_idcliente NUMBER,
+    p_nombrecompleto VARCHAR2
+  ) IS
+  BEGIN
+    UPDATE Clientes
+    SET NombreCompleto = p_nombrecompleto
+    WHERE IDCliente = p_idcliente;
+  END actualizar_cliente;
+
+  PROCEDURE eliminar_cliente (p_idcliente NUMBER) IS
+  BEGIN
+    DELETE FROM Clientes 
+    WHERE IDCliente = p_idcliente;
+  END eliminar_cliente;
+
+END paquete_clientes;
+/
+
+--9-SI
+CREATE OR REPLACE PACKAGE paquete_compras AS
+
+  PROCEDURE crear_tabla_compras;
+
+  PROCEDURE registrar_compra(
+    p_idcompra NUMBER,
+    p_cliente VARCHAR2,
+    p_producto VARCHAR2,
+    p_cantidad NUMBER,
+    p_total NUMBER    
+  );
+
+  FUNCTION obtener_compras_cliente(p_cliente VARCHAR2) RETURN SYS_REFCURSOR;
+
+  FUNCTION obtener_total_producto(p_producto VARCHAR2) RETURN NUMBER;
+
+END paquete_compras;
+/
+--10
+CREATE OR REPLACE PACKAGE BODY paquete_compras AS
+
+  PROCEDURE crear_tabla_compras IS  
+  BEGIN
+    EXECUTE IMMEDIATE '
+      CREATE TABLE HistorialCompras(
+        IDCompra NUMBER PRIMARY KEY,
+        Cliente VARCHAR2(100) NOT NULL,
+        Producto VARCHAR2(100) NOT NULL,
+        Cantidad NUMBER NOT NULL,
+        Total NUMBER NOT NULL
+      )';
+  END crear_tabla_compras;
+
+  PROCEDURE registrar_compra(
+    p_idcompra NUMBER,
+    p_cliente VARCHAR2,
+    p_producto VARCHAR2,
+    p_cantidad NUMBER,
+    p_total NUMBER
+  ) IS
+  BEGIN
+    INSERT INTO HistorialCompras VALUES(
+      p_idcompra,
+      p_cliente,
+      p_producto,
+      p_cantidad,
+      p_total
+    );
+  END registrar_compra;
+
+  FUNCTION obtener_compras_cliente(p_cliente VARCHAR2) RETURN SYS_REFCURSOR IS
+    refcur SYS_REFCURSOR;
+  BEGIN
+    OPEN refcur FOR
+      SELECT * FROM HistorialCompras
+      WHERE Cliente = p_cliente;
+    
+    RETURN refcur;
+  END obtener_compras_cliente;
+
+  FUNCTION obtener_total_producto(p_producto VARCHAR2) RETURN NUMBER IS
+    v_total NUMBER;
+  BEGIN  
+    SELECT SUM(Total) INTO v_total
+    FROM HistorialCompras
+    WHERE Producto = p_producto;
+
+    RETURN v_total;
+  END obtener_total_producto;
+  
+END paquete_compras;
+/
+
+
+
 
 
 
