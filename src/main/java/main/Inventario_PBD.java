@@ -27,7 +27,7 @@ public class Inventario_PBD {
             ResultSet res= cn.executeQuery(aSQL);
             while(res.next()){
                 System.out.println("___________________");
-                System.out.println(res.getInt("IDNO"));
+                System.out.println(res.getInt("IDNO"));C:\Users\HUAWEI PC\.m2\repository\com\oracle\ojdbc11\11\ojdbc11-11.jar
                 System.out.println(res.getString("LNAME"));
                 System.out.println(res.getString("FNAME"));
                 System.out.println(res.getString("BIRTH_DATE"));

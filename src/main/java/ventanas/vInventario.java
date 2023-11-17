@@ -26,31 +26,150 @@ public class vInventario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuGeneral = new javax.swing.JMenu();
+        MenuEntrada = new javax.swing.JMenu();
+        menuSalida = new javax.swing.JMenu();
+        menuInventario = new javax.swing.JMenu();
+        menuReportes = new javax.swing.JMenu();
+        menuConsultas = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(200, 195, 172));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("INVENTARIO");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(286, 286, 286)
+                .addComponent(jLabel1)
+                .addContainerGap(338, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1)
+                .addContainerGap(497, Short.MAX_VALUE))
+        );
+
+        menuGeneral.setText("General");
+        menuGeneral.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuGeneralMouseClicked(evt);
+            }
+        });
+        menuGeneral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuGeneralActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(menuGeneral);
+
+        MenuEntrada.setText("Entradas");
+        MenuEntrada.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuEntradaMouseClicked(evt);
+            }
+        });
+        MenuEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuEntradaActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(MenuEntrada);
+
+        menuSalida.setText("Salidas");
+        menuSalida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuSalidaMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(menuSalida);
+
+        menuInventario.setText("Inventario");
+        menuInventario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuInventarioMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(menuInventario);
+
+        menuReportes.setText("Reportes");
+        menuReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuReportesMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(menuReportes);
+
+        menuConsultas.setText("Consultas");
+        jMenuBar1.add(menuConsultas);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(139, 139, 139)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(158, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jLabel1)
-                .addContainerGap(252, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void menuGeneralMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuGeneralMouseClicked
+        this.dispose();
+        vPrin vP = new vPrin();
+        vP.setVisible(true);
+    }//GEN-LAST:event_menuGeneralMouseClicked
+
+    private void menuGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGeneralActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuGeneralActionPerformed
+
+    private void MenuEntradaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuEntradaMouseClicked
+        // TODO add your handling code here:
+        //PRUEBA
+        this.dispose();
+        vEntradas vE = new vEntradas();
+        vE.setVisible(true);
+    }//GEN-LAST:event_MenuEntradaMouseClicked
+
+    private void MenuEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEntradaActionPerformed
+        this.dispose();
+        vEntradas vE = new vEntradas();
+        vE.setVisible(true);
+    }//GEN-LAST:event_MenuEntradaActionPerformed
+
+    private void menuSalidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSalidaMouseClicked
+        this.dispose();
+        vSalidas vS = new vSalidas();
+        vS.setVisible(true);
+    }//GEN-LAST:event_menuSalidaMouseClicked
+
+    private void menuInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuInventarioMouseClicked
+        this.dispose();
+        vInventario vI = new vInventario();
+        vI.setVisible(true);
+    }//GEN-LAST:event_menuInventarioMouseClicked
+
+    private void menuReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuReportesMouseClicked
+        this.dispose();
+        vReportes vR = new vReportes();
+        vR.setVisible(true);
+    }//GEN-LAST:event_menuReportesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -88,6 +207,14 @@ public class vInventario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu MenuEntrada;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenu menuConsultas;
+    private javax.swing.JMenu menuGeneral;
+    private javax.swing.JMenu menuInventario;
+    private javax.swing.JMenu menuReportes;
+    private javax.swing.JMenu menuSalida;
     // End of variables declaration//GEN-END:variables
 }

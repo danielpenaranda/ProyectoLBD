@@ -4,6 +4,8 @@
  */
 package ventanas;
 
+import java.awt.BorderLayout;
+
 /**
  *
  * @author HUAWEI PC
@@ -15,6 +17,7 @@ public class vPrin extends javax.swing.JFrame {
      */
     public vPrin() {
         initComponents();
+
     }
 
     /**
@@ -60,13 +63,14 @@ public class vPrin extends javax.swing.JFrame {
         menuSalida = new javax.swing.JMenu();
         menuInventario = new javax.swing.JMenu();
         menuReportes = new javax.swing.JMenu();
+        menuConsultas = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(172, 200, 174));
 
         jPanel1.setBackground(new java.awt.Color(172, 200, 174));
 
-        jPanelGeneral.setBackground(new java.awt.Color(172, 200, 174));
+        jPanelGeneral.setBackground(new java.awt.Color(200, 195, 172));
 
         lblFechaEmision.setText("Fecha de emisión: ");
 
@@ -285,7 +289,7 @@ public class vPrin extends javax.swing.JFrame {
                             .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblIva)
                             .addComponent(txtIva, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(428, Short.MAX_VALUE))
+                .addContainerGap(431, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -300,6 +304,11 @@ public class vPrin extends javax.swing.JFrame {
         );
 
         menuGeneral.setText("General");
+        menuGeneral.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuGeneralMouseClicked(evt);
+            }
+        });
         menuGeneral.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuGeneralActionPerformed(evt);
@@ -308,16 +317,44 @@ public class vPrin extends javax.swing.JFrame {
         jMenuBar1.add(menuGeneral);
 
         MenuEntrada.setText("Entradas");
+        MenuEntrada.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuEntradaMouseClicked(evt);
+            }
+        });
+        MenuEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuEntradaActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(MenuEntrada);
 
         menuSalida.setText("Salidas");
+        menuSalida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuSalidaMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(menuSalida);
 
         menuInventario.setText("Inventario");
+        menuInventario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuInventarioMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(menuInventario);
 
         menuReportes.setText("Reportes");
+        menuReportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuReportesMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(menuReportes);
+
+        menuConsultas.setText("Consultas");
+        jMenuBar1.add(menuConsultas);
 
         setJMenuBar(jMenuBar1);
 
@@ -391,6 +428,44 @@ public class vPrin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuGeneralActionPerformed
 
+    private void MenuEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEntradaActionPerformed
+        this.dispose();
+        vEntradas vE = new vEntradas();
+        vE.setVisible(true);
+    }//GEN-LAST:event_MenuEntradaActionPerformed
+
+    private void MenuEntradaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuEntradaMouseClicked
+        // TODO add your handling code here:
+        //PRUEBA
+        this.dispose();
+        vEntradas vE = new vEntradas();
+        vE.setVisible(true);
+    }//GEN-LAST:event_MenuEntradaMouseClicked
+
+    private void menuSalidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuSalidaMouseClicked
+        this.dispose();
+        vSalidas vS = new vSalidas();
+        vS.setVisible(true);
+    }//GEN-LAST:event_menuSalidaMouseClicked
+
+    private void menuGeneralMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuGeneralMouseClicked
+        this.dispose();
+        vPrin vP = new vPrin();
+        vP.setVisible(true);
+    }//GEN-LAST:event_menuGeneralMouseClicked
+
+    private void menuInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuInventarioMouseClicked
+        this.dispose();
+        vInventario vI = new vInventario();
+        vI.setVisible(true);
+    }//GEN-LAST:event_menuInventarioMouseClicked
+
+    private void menuReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuReportesMouseClicked
+        this.dispose();
+        vReportes vR = new vReportes();
+        vR.setVisible(true);
+    }//GEN-LAST:event_menuReportesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -444,6 +519,7 @@ public class vPrin extends javax.swing.JFrame {
     private javax.swing.JLabel lblProveedor;
     private javax.swing.JLabel lblRecibidoPor;
     private javax.swing.JLabel lblTotal;
+    private javax.swing.JMenu menuConsultas;
     private javax.swing.JMenu menuGeneral;
     private javax.swing.JMenu menuInventario;
     private javax.swing.JMenu menuReportes;

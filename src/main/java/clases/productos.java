@@ -5,72 +5,94 @@ package clases;
  * @author HUAWEI PC
  */
 public class productos {
-    int id;
-    String producto;
-    String descripción;
-    String etiqueta;
-    double precio;
-    boolean existencia;
+    int IdProducto;
+    String nombreProducto;
+    String categoriaProducto;
+    String descripcionProducto;
+    String precioUnidad;
+    String fechaVencimiento;
+    String nivelInventario;
+    boolean existencias;
 
     public productos() {
     }
 
-    public productos(int id, String producto, String descripción, String etiqueta, double precio, boolean existencia) {
-        this.id = id;
-        this.producto = producto;
-        this.descripción = descripción;
-        this.etiqueta = etiqueta;
-        this.precio = precio;
-        this.existencia = existencia;
+    public productos(int IdProducto, String nombreProducto, String categoriaProducto, String descripcionProducto, String precioUnidad, String fechaVencimiento, String nivelInventario, boolean existencias) {
+        this.IdProducto = IdProducto;
+        this.nombreProducto = nombreProducto;
+        this.categoriaProducto = categoriaProducto;
+        this.descripcionProducto = descripcionProducto;
+        this.precioUnidad = precioUnidad;
+        this.fechaVencimiento = fechaVencimiento;
+        this.nivelInventario = nivelInventario;
+        this.existencias = existencias;
     }
 
-    public int getId() {
-        return id;
+    public int getIdProducto() {
+        return IdProducto;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdProducto(int IdProducto) {
+        this.IdProducto = IdProducto;
     }
 
-    public String getProducto() {
-        return producto;
+    public String getNombreProducto() {
+        return nombreProducto;
     }
 
-    public void setProducto(String producto) {
-        this.producto = producto;
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
     }
 
-    public String getDescripción() {
-        return descripción;
+    public String getCategoriaProducto() {
+        return categoriaProducto;
     }
 
-    public void setDescripción(String descripción) {
-        this.descripción = descripción;
+    public void setCategoriaProducto(String categoriaProducto) {
+        this.categoriaProducto = categoriaProducto;
     }
 
-    public String getEtiqueta() {
-        return etiqueta;
+    public String getDescripcionProducto() {
+        return descripcionProducto;
     }
 
-    public void setEtiqueta(String etiqueta) {
-        this.etiqueta = etiqueta;
+    public void setDescripcionProducto(String descripcionProducto) {
+        this.descripcionProducto = descripcionProducto;
     }
 
-    public double getPrecio() {
-        return precio;
+    public String getPrecioUnidad() {
+        return precioUnidad;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setPrecioUnidad(String precioUnidad) {
+        this.precioUnidad = precioUnidad;
     }
 
-    public boolean isExistencia() {
-        return existencia;
+    public String getFechaVencimiento() {
+        return fechaVencimiento;
     }
 
-    public void setExistencia(boolean existencia) {
-        this.existencia = existencia;
+    public void setFechaVencimiento(String fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
     }
+
+    public String getNivelInventario() {
+        return nivelInventario;
+    }
+
+    public void setNivelInventario(String nivelInventario) {
+        this.nivelInventario = nivelInventario;
+    }
+
+    public boolean isExistencias() {
+        return existencias;
+    }
+
+    public void setExistencias(boolean existencias) {
+        this.existencias = existencias;
+    }
+    
+    
     
     
     
