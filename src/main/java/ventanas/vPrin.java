@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ventanas;
 
 import java.awt.BorderLayout;
@@ -17,6 +13,7 @@ public class vPrin extends javax.swing.JFrame {
      */
     public vPrin() {
         initComponents();
+        this.setLocationRelativeTo(this);
 
     }
 
@@ -210,7 +207,7 @@ public class vPrin extends javax.swing.JFrame {
                             .addGroup(jPanelGeneralLayout.createSequentialGroup()
                                 .addComponent(lblAlmacenRecibido)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtAlmacenRecibido, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))))
+                                .addComponent(txtAlmacenRecibido, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))))
                     .addGroup(jPanelGeneralLayout.createSequentialGroup()
                         .addComponent(lblFechaEmision)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -239,13 +236,12 @@ public class vPrin extends javax.swing.JFrame {
                         .addComponent(txtAutorizacion, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelGeneralLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                         .addComponent(lblTotal)
-                        .addGap(37, 37, 37))
+                        .addGap(65, 65, 65))
                     .addGroup(jPanelGeneralLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(28, 28, 28))
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanelGeneralLayout.setVerticalGroup(
             jPanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,7 +285,7 @@ public class vPrin extends javax.swing.JFrame {
                             .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblIva)
                             .addComponent(txtIva, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(431, Short.MAX_VALUE))
+                .addContainerGap(558, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -302,6 +298,9 @@ public class vPrin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanelGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        jMenuBar1.setBackground(new java.awt.Color(200, 198, 192));
+        jMenuBar1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         menuGeneral.setText("General");
         menuGeneral.addMouseListener(new java.awt.event.MouseAdapter() {
